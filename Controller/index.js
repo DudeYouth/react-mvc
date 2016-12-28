@@ -1,13 +1,19 @@
-import view from "../index";
+import Module, { Interface } from "../index";
 import IndexView from "../page/index";
-import NewView from "../page/new";
+import TitleView from "../component/title";
+import TestView from "../component/test";
 import { getAll } from "../model/index";
 
-export default class Index {
-    index() {
-        return view.render(IndexView, { "title": "holle word!", text: { text: "test" } });
+export default class Index extends Module {
+    constructor(props) {
+        super(props);
     }
-    news() {
-        return view.render(NewView, { "title": "new word!" });
+    @Interface
+    setindex(model) {
+        this.render('__index', [IndexView, TestView], model || { "title": "holle word!", text: { text: "test" } });
+    }
+    @Interface
+    setTitle(model) {
+        this.render('__title', TitleView, model);
     }
 }
